@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build > vite-log.txt 2>&1 || (cat vite-log.txt && exit 1)",
     "lint": "eslint .",
     "preview": "vite preview"
   },

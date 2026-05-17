@@ -23,11 +23,25 @@ const messageRoutes = require('./routes/messages');
 const teacherRoutes = require('./routes/teacher');
 const notesRoutes = require('./routes/notes');
 
-// Connect to MongoDB
-connectDB();
+// =========================================================
+// REPLACE YOUR OLD 'connectDB();' LINE WITH THIS BLOCK:
+// =========================================================
+const mongoose = require('mongoose');
 
+mongoose.connect(process.env.MONGO_URI || process.env.DATABASE_URL, {
+  family: 4 // Forces Node.js to use IPv4 instead of IPv6 to bypass network blocks
+})
+.then((conn) => {
+  console.log(`🚀 MongoDB Connected Successfully: ${conn.connection.host}`);
+})
+.catch((err) => {
+  console.error("❌ MongoDB Connection Error Details:", err.message);
+  console.log("💡 Make sure your .env has the right password and Option B (0.0.0.0/0) is active in Atlas.");
+});
+// =========================================================
+
+// Your existing app initialization continues below:
 const app = express();
-
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(cors({
   origin: function(origin, callback) {
