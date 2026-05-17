@@ -5,7 +5,6 @@ const api = axios.create({
   timeout: 90000 
 });
 
-export default api;
 // Attach token from storage on each request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('eduai_token');
