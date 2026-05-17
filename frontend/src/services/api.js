@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
-  timeout: 90000, // 90s — AI analysis (PDF + Gemini Pro) can take 30-60s
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  timeout: 90000 
 });
 
+export default api;
 // Attach token from storage on each request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('eduai_token');
